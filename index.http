@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSC Class 8 | Our Class Website</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#1c2940}
+header{background:linear-gradient(130deg,#102653,#246bd8);color:white;text-align:center;padding:48px 15px}
+header h1{font-size:38px;margin:0}
+header p{font-size:16px}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:white;padding:23px;border-radius:15px;margin:22px 0;box-shadow:0 4px 18px #15294d12}
+h2{color:#174b9b}
+h3{color:#263c60}
+input,textarea,button,select{width:100%;padding:12px;margin:7px 0;border:1px solid #ccd6e7;border-radius:8px;font-size:15px}
+textarea{min-height:85px;resize:vertical}
+button{background:#1762c4;color:white;border:0;font-weight:bold;cursor:pointer}
+button:hover{background:#104b9b}
+.secondary{background:#687991}
+.danger{background:#c0392b}
+.small-btn{width:auto;padding:9px 13px}
+.hidden{display:none!important}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.role{padding:22px 8px;text-align:center;border:2px solid #dce5f5;border-radius:12px;cursor:pointer;font-weight:bold;background:#f8faff}
+.role.selected{border-color:#1762c4;background:#e7f0ff}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;background:#102653;padding:13px;position:sticky;top:0;z-index:10}
+nav a{color:white;text-decoration:none;padding:9px 12px;border-radius:7px;font-size:14px}
+nav a:hover{background:#246bd8}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.stat{background:#eaf1ff;border-radius:12px;padding:20px;text-align:center}
+.stat strong{display:block;font-size:30px;color:#1762c4}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:15px}
+.person,.photo-card{background:#f5f8ff;border-radius:12px;padding:12px;text-align:center;overflow:hidden}
+.person img{width:100%;height:175px;object-fit:cover;border-radius:9px}
+.photo-card img{width:100%;height:180px;object-fit:cover;border-radius:9px}
+.item{background:#f3f7ff;padding:15px;border-radius:10px;margin:12px 0;overflow-wrap:anywhere}
+.item button{width:auto}
+hr{border:0;border-top:1px solid #e2e8f2;margin:25px 0}
+footer{background:#102653;color:white;text-align:center;padding:25px}
+.message{font-size:14px;color:#b42318}
+.social-link{display:inline-block;background:#e7f0ff;color:#174b9b;padding:9px 13px;margin:5px;border-radius:8px;text-decoration:none;font-weight:bold;overflow-wrap:anywhere}
+.social-link:hover{background:#d4e5ff}
+@media(max-width:650px){
+.roles{grid-template-columns:repeat(2,1fr)}
+.stats{grid-template-columns:1fr}
+header h1{font-size:29px}
+nav a{font-size:12px;padding:7px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ROLE SELECTION -->
+<section id="rolePage" class="container">
+<div class="card" style="text-align:center;margin-top:50px">
+<h1>🏫 NSC CLASS 8</h1>
+<p>Our Class • Our Memories • Our Future</p>
+<h2>Select Your Role</h2>
+
+<div class="roles">
+<div class="role" onclick="chooseRole('Admin',this)">👑<br>Admin</div>
+<div class="role" onclick="chooseRole('Student',this)">🎓<br>Student</div>
+<div class="role" onclick="chooseRole('Teacher',this)">👨‍🏫<br>Teacher</div>
+<div class="role" onclick="chooseRole('Visitor',this)">🌐<br>Visitor</div>
+</div>
+
+<div id="codeArea" class="hidden">
+<p id="codeLabel">Enter your access code</p>
+<input type="password" id="accessCode" placeholder="Enter Access Code">
+</div>
+
+<button onclick="enterSite()">Submit & Enter Website</button>
+<p id="loginMessage" class="message"></p>
+</div>
+</section>
+
+<!-- MAIN WEBSITE -->
+<div id="mainSite" class="hidden">
+
+<header>
+<h1>NSC CLASS 8</h1>
+<p>Our Class • Our Memories • Our Future</p>
+<p id="welcomeText"></p>
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#students">Students</a>
+<a href="#teachers">Teachers</a>
+<a href="#social">Social Media</a>
+<a href="#events">Events</a>
+<a href="#exams">Exams</a>
+<a href="#notices">Notices</a>
+<a href="#gallery">Gallery</a>
+</nav>
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home" class="card">
+<h2>Welcome to NSC Class 8!</h2>
+<p>Welcome to our class website. This is a place to share our class information, students, teachers, events, examinations, notices and memories.</p>
+
+<div class="stats">
+<div class="stat"><strong id="homeStudentCount">0</strong>Students</div>
+<div class="stat"><strong id="homeTeacherCount">0</strong>Teachers</div>
+<div class="stat"><strong id="homeEventCount">0</strong>Events</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="card">
+<h2>About Our Class</h2>
+<p>We are the students of NSC Class 8. Our class is a community of learning, friendship, teamwork and memories.</p>
+<p>This website helps us share our activities and important class information.</p>
+</section>
+
+<!-- STUDENTS -->
+<section id="students" class="card">
+<h2>🎓 Our Students</h2>
+<h3>Total Students: <span id="studentCount">0</span></h3>
+<div id="studentList" class="gallery"></div>
+
+<div id="studentAdmin" class="hidden">
+<hr>
+<h3>➕ Add Student</h3>
+<input id="studentName" placeholder="Student Full Name">
+<input id="studentRoll" placeholder="Roll Number (Optional)">
+<input id="studentPhoto" type="file" accept="image/*">
+<button onclick="addPerson('student')">Add Student</button>
+</div>
+</section>
+
+<!-- TEACHERS -->
+<section id="teachers" class="card">
+<h2>👨‍🏫 Our Teachers</h2>
+<h3>Total Teachers: <span id="teacherCount">0</span></h3>
+<div id="teacherList" class="gallery"></div>
+
+<div id="teacherAdmin" class="hidden">
+<hr>
+<h3>➕ Add Teacher</h3>
+<input id="teacherName" placeholder="Teacher Full Name">
+<input id="teacherSubject" placeholder="Subject / Designation">
+<input id="teacherPhoto" type="file" accept="image/*">
+<button onclick="addPerson('teacher')">Add Teacher</button>
+</div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<section id="social" class="card">
+<h2>🌐 Our Social Media</h2>
+<p>Connect with our students and teachers through their public social media profiles.</p>
+
+<h3>🎓 Student Social Media</h3>
+<div id="studentSocialList"></div>
+
+<hr>
+
+<h3>👨‍🏫 Teacher Social Media</h3>
+<div id="teacherSocialList"></div>
+</section>
+
+<!-- EVENTS -->
+<section id="events" class="card">
+<h2>🎉 Class Events</h2>
+<div id="eventList"></div>
+</section>
+
+<!-- EXAMS -->
+<section id="exams" class="card">
+<h2>📚 Examination Schedule</h2>
+<div id="examList"></div>
+</section>
+
+<!-- NOTICES -->
+<section id="notices" class="card">
+<h2>📢 Notice Board</h2>
+<div id="noticeList"></div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="card">
+<h2>📸 Photo Gallery</h2>
+<div id="photoGallery" class="gallery"></div>
+</section>
+
+<!-- PHOTO UPLOAD -->
+<section id="uploadArea" class="card hidden">
+<h2>📷 Upload Class Photos</h2>
+<p>Students, Teachers and Admin can add photos.</p>
+<input type="file" id="photoInput" accept="image/*" multiple>
+<button onclick="uploadPhotos()">Upload Photos</button>
+<p id="uploadMessage"></p>
+</section>
+
+<!-- ADMIN DASHBOARD -->
+<section id="managementArea" class="card hidden">
+<h2>👑 Admin Dashboard</h2>
+<p>Manage your class website from here.</p>
+
+<hr>
+<h3>➕ Add Student Social Media</h3>
+<input id="studentSocialName" placeholder="Student Name">
+<select id="studentSocialPlatform">
+<option value="Instagram">Instagram</option>
+<option value="Facebook">Facebook</option>
+<option value="YouTube">YouTube</option>
+<option value="TikTok">TikTok</option>
+<option value="Other">Other</option>
+</select>
+<input id="studentSocialUrl" placeholder="Full Profile URL (https://...)">
+<button onclick="addSocial('student')">Add Student Social Media</button>
+
+<hr>
+<h3>➕ Add Teacher Social Media</h3>
+<input id="teacherSocialName" placeholder="Teacher Name">
+<select id="teacherSocialPlatform">
+<option value="Instagram">Instagram</option>
+<option value="Facebook">Facebook</option>
+<option value="YouTube">YouTube</option>
+<option value="TikTok">TikTok</option>
+<option value="Other">Other</option>
+</select>
+<input id="teacherSocialUrl" placeholder="Full Profile URL (https://...)">
+<button onclick="addSocial('teacher')">Add Teacher Social Media</button>
+
+<hr>
+<h3>➕ Add New Event</h3>
+<input id="eventName" placeholder="Event Name">
+<input id="eventDate" type="date">
+<input id="eventTime" type="time">
+<textarea id="eventDetails" placeholder="Event Details"></textarea>
+<button onclick="addItem('events')">Add Event</button>
+
+<hr>
+<h3>➕ Add New Exam</h3>
+<input id="examName" placeholder="Exam Name">
+<input id="examDate" type="date">
+<input id="examTime" type="time">
+<textarea id="examDetails" placeholder="Exam Details"></textarea>
+<button onclick="addItem('exams')">Add Exam</button>
+
+<hr>
+<h3>➕ Publish New Notice</h3>
+<input id="noticeName" placeholder="Notice Title">
+<textarea id="noticeDetails" placeholder="Notice Details"></textarea>
+<button onclick="addNotice()">Publish Notice</button>
+</section>
+
+<button class="secondary" onclick="logout()">Change Role / Exit</button>
+
+</main>
+
+<footer>
+<h3>NSC CLASS 8</h3>
+<p>Our Class • Our Memories • Our Future</p>
+<p>© 2026 NSC Class 8</p>
+</footer>
+
+</div>
+
+<script>
+
+/* ACCESS CODES */
+const ACCESS_CODES = {
+Admin:"NSC8AD26",
+Student:"NSC8ST26",
+Teacher:"NSC8TC26"
+};
+
+let selectedRole = "";
+let role = "";
+
+/* LOAD SAVED DATA */
+function loadData(key){
+try{
+return JSON.parse(localStorage.getItem(key) || "[]");
+}catch(error){
+return [];
+}
+}
+
+let students = loadData("nsc_students");
+let teachers = loadData("nsc_teachers");
+let events = loadData("nsc_events");
+let exams = loadData("nsc_exams");
+let notices = loadData("nsc_notices");
+let photos = loadData("nsc_photos");
+let studentSocials = loadData("nsc_student_socials");
+let teacherSocials = loadData("nsc_teacher_socials");
+
+/* ROLE SELECTION */
+function chooseRole(name,element){
+selectedRole = name;
+
+document.querySelectorAll(".role").forEach(el=>{
+el.classList.remove("selected");
+});
+
+element.classList.add("selected");
+
+document.getElementById("codeArea").classList.toggle("hidden",name === "Visitor");
+document.getElementById("accessCode").value = "";
+document.getElementById("loginMessage").textContent = "";
+}
+
+function enterSite(){
+if(!selectedRole){
+alert("Please select your role!");
+return;
+}
+
+if(selectedRole !== "Visitor"){
+const code = document.getElementById("accessCode").value;
+
+if(code !== ACCESS_CODES[selectedRole]){
+document.getElementById("loginMessage").textContent = "Incorrect Access Code. Try Again!";
+return;
+}
+}
+
+role = selectedRole;
+
+document.getElementById("rolePage").classList.add("hidden");
+document.getElementById("mainSite").classList.remove("hidden");
+
+document.getElementById("welcomeText").textContent = "Welcome! You entered as " + role;
+
+document.getElementById("uploadArea").classList.toggle("hidden",role === "Visitor");
+document.getElementById("managementArea").classList.toggle("hidden",role !== "Admin");
+document.getElementById("studentAdmin").classList.toggle("hidden",role !== "Admin");
+document.getElementById("teacherAdmin").classList.toggle("hidden",role !== "Admin");
+
+render();
+}
+
+function logout(){
+role = "";
+selectedRole = "";
+
+document.getElementById("mainSite").classList.add("hidden");
+document.getElementById("rolePage").classList.remove("hidden");
+document.getElementById("accessCode").value = "";
+
+document.querySelectorAll(".role").forEach(el=>{
+el.classList.remove("selected");
+});
+}
+
+/* SAVE DATA */
+function saveData(key,data){
+try{
+localStorage.setItem(key,JSON.stringify(data));
+return true;
+}catch(error){
+alert("Browser storage is full. Try a smaller photo or fewer photos.");
+return false;
+}
+}
+
+/* SAFE TEXT */
+function safeText(value){
+return String(value ?? "").replace(/[&<>"']/g,char=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+})[char]);
+}
+
+/* ADD STUDENT OR TEACHER */
+function addPerson(type){
+if(role !== "Admin"){
+alert("Admin access required!");
+return;
+}
+
+const isStudent = type === "student";
+
+const nameInput = document.getElementById(isStudent ? "studentName" : "teacherName");
+const extraInput = document.getElementById(isStudent ? "studentRoll" : "teacherSubject");
+const photoInput = document.getElementById(isStudent ? "studentPhoto" : "teacherPhoto");
+
+const name = nameInput.value.trim();
+const extra = extraInput.value.trim();
+const file = photoInput.files[0];
+
+if(!name || !file){
+alert("Please enter a name and choose a photo.");
+return;
+}
+
+if(!file.type.startsWith("image/")){
+alert("Please choose an image.");
+return;
+}
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+const list = isStudent ? students : teachers;
+const key = isStudent ? "nsc_students" : "nsc_teachers";
+
+list.push({name:name,extra:extra,photo:e.target.result});
+
+if(saveData(key,list)){
+nameInput.value = "";
+extraInput.value = "";
+photoInput.value = "";
+render();
+alert("Successfully added!");
+}else{
+list.pop();
+}
+};
+
+reader.readAsDataURL(file);
+}
+
+/* DELETE STUDENT OR TEACHER */
+function deletePerson(type,index){
+if(role !== "Admin") return;
+if(!confirm("Delete this person?")) return;
+
+const isStudent = type === "student";
+const list = isStudent ? students : teachers;
+const key = isStudent ? "nsc_students" : "nsc_teachers";
+
+const removed = list.splice(index,1)[0];
+
+if(!saveData(key,list)){
+list.splice(index,0,removed);
+}
+
+render();
+}
+
+/* RENDER PEOPLE */
+function renderPeople(){
+document.getElementById("studentCount").textContent = students.length;
+document.getElementById("teacherCount").textContent = teachers.length;
+document.getElementById("homeStudentCount").textContent = students.length;
+document.getElementById("homeTeacherCount").textContent = teachers.length;
+
+document.getElementById("studentList").innerHTML =
+students.map((person,index)=>`
+<div class="person">
+<img src="${person.photo}" alt="Student">
+<h3>${safeText(person.name)}</h3>
+${person.extra ? `<p>Roll: ${safeText(person.extra)}</p>` : ""}
+${role === "Admin" ? `<button class="danger small-btn" onclick="deletePerson('student',${index})">Delete</button>` : ""}
+</div>
+`).join("") || "<p>No students added yet.</p>";
+
+document.getElementById("teacherList").innerHTML =
+teachers.map((person,index)=>`
+<div class="person">
+<img src="${person.photo}" alt="Teacher">
+<h3>${safeText(person.name)}</h3>
+${person.extra ? `<p>${safeText(person.extra)}</p>` : ""}
+${role === "Admin" ? `<button class="danger small-btn" onclick="deletePerson('teacher',${index})">Delete</button>` : ""}
+</div>
+`).join("") || "<p>No teachers added yet.</p>";
+}
+
+/* ADD SOCIAL MEDIA */
+function addSocial(type){
+if(role !== "Admin"){
+alert("Admin access required!");
+return;
+}
+
+const isStudent = type === "student";
+
+const nameInput = document.getElementById(isStudent ? "studentSocialName" : "teacherSocialName");
+const platformInput = document.getElementById(isStudent ? "studentSocialPlatform" : "teacherSocialPlatform");
+const urlInput = document.getElementById(isStudent ? "studentSocialUrl" : "teacherSocialUrl");
+
+const name = nameInput.value.trim();
+const platform = platformInput.value;
+const url = urlInput.value.trim();
+
+if(!name || !url){
+alert("Please enter the name and profile URL.");
+return;
+}
+
+try{
+const parsed = new URL(url);
+if(parsed.protocol !== "https:" && parsed.protocol !== "http:"){
+alert("Please enter a valid website link.");
+return;
+}
+}catch(error){
+alert("Please enter a valid full URL starting with https://");
+return;
+}
+
+const list = isStudent ? studentSocials : teacherSocials;
+const key = isStudent ? "nsc_student_socials" : "nsc_teacher_socials";
+
+list.push({name,platform,url});
+
+if(!saveData(key,list)){
+list.pop();
+return;
+}
+
+nameInput.value = "";
+urlInput.value = "";
+
+renderSocials();
+alert("Social media link added!");
+}
+
+/* DELETE SOCIAL MEDIA */
+function deleteSocial(type,index){
+if(role !== "Admin") return;
+if(!confirm("Delete this social media link?")) return;
+
+const isStudent = type === "student";
+const list = isStudent ? studentSocials : teacherSocials;
+const key = isStudent ? "nsc_student_socials" : "nsc_teacher_socials";
+
+const removed = list.splice(index,1)[0];
+
+if(!saveData(key,list)){
+list.splice(index,0,removed);
+}
+
+renderSocials();
+}
+
+/* RENDER SOCIAL MEDIA */
+function renderSocials(){
+document.getElementById("studentSocialList").innerHTML =
+studentSocials.map((item,index)=>`
+<div class="item">
+<h3>🎓 ${safeText(item.name)}</h3>
+<p>${safeText(item.platform)}</p>
+<a class="social-link" href="${safeText(item.url)}" target="_blank" rel="noopener noreferrer">Visit ${safeText(item.platform)} Profile ↗</a>
+${role === "Admin" ? `<br><button class="danger small-btn" onclick="deleteSocial('student',${index})">Delete</button>` : ""}
+</div>
+`).join("") || "<p>No student social media links added yet.</p>";
+
+document.getElementById("teacherSocialList").innerHTML =
+teacherSocials.map((item,index)=>`
+<div class="item">
+<h3>👨‍🏫 ${safeText(item.name)}</h3>
+<p>${safeText(item.platform)}</p>
+<a class="social-link" href="${safeText(item.url)}" target="_blank" rel="noopener noreferrer">Visit ${safeText(item.platform)} Profile ↗</a>
+${role === "Admin" ? `<br><button class="danger small-btn" onclick="deleteSocial('teacher',${index})">Delete</button>` : ""}
+</div>
+`).join("") || "<p>No teacher social media links added yet.</p>";
+}
+
+/* ADD EVENT AND EXAM */
+function addItem(type){
+if(role !== "Admin"){
+alert("Admin access required!");
+return;
+}
+
+const isEvent = type === "events";
+
+const nameInput = document.getElementById(isEvent ? "eventName" : "examName");
+const dateInput = document.getElementById(isEvent ? "eventDate" : "examDate");
+const timeInput = document.getElementById(isEvent ? "eventTime" : "examTime");
+const detailsInput = document.getElementById(isEvent ? "eventDetails" : "examDetails");
+
+const name = nameInput.value.trim();
+const date = dateInput.value;
+const time = timeInput.value;
+const details = detailsInput.value.trim();
+
+if(!name || !date){
+alert("Please enter a name and date.");
+return;
+}
+
+const list = isEvent ? events : exams;
+const key = isEvent ? "nsc_events" : "nsc_exams";
+
+list.push({name,date,time,details});
+
+if(!saveData(key,list)){
+list.pop();
+return;
+}
+
+nameInput.value = "";
+dateInput.value = "";
+timeInput.value = "";
+detailsInput.value = "";
+
+render();
+alert("Successfully added!");
+}
+
+/* ADD NOTICE */
+function addNotice(){
+if(role !== "Admin") return;
+
+const name = document.getElementById("noticeName").value.trim();
+const details = document.getElementById("noticeDetails").value.trim();
+
+if(!name || !details){
+alert("Please enter notice title and details.");
+return;
+}
+
+notices.push({name,details});
+
+if(!saveData("nsc_notices",notices)){
+notices.pop();
+return;
+}
+
+document.getElementById("noticeName").value = "";
+document.getElementById("noticeDetails").value = "";
+
+render();
+alert("Notice published!");
+}
+
+/* DELETE EVENT, EXAM, NOTICE */
+function deleteItem(type,index){
+if(role !== "Admin") return;
+if(!confirm("Are you sure you want to delete this?")) return;
+
+const data = {events:events,exams:exams,notices:notices};
+const keys = {events:"nsc_events",exams:"nsc_exams",notices:"nsc_notices"};
+
+const list = data[type];
+const removed = list.splice(index,1)[0];
+
+if(!saveData(keys[type],list)){
+list.splice(index,0,removed);
+}
+
+render();
+}
+
+/* RENDER EVENT / EXAM / NOTICE */
+function renderList(type,list,targetId){
+const target = document.getElementById(targetId);
+
+if(list.length === 0){
+target.innerHTML = "<p>No information added yet.</p>";
+return;
+}
+
+target.innerHTML = list.map((item,index)=>`
+<div class="item">
+<h3>${safeText(item.name)}</h3>
+${item.date ? `<p>📅 ${safeText(item.date)}</p>` : ""}
+${item.time ? `<p>🕒 ${safeText(item.time)}</p>` : ""}
+<p>${safeText(item.details)}</p>
+${role === "Admin" ? `<button class="danger small-btn" onclick="deleteItem('${type}',${index})">Delete</button>` : ""}
+</div>
+`).join("");
+}
+
+/* PHOTO GALLERY UPLOAD */
+function uploadPhotos(){
+if(!["Admin","Student","Teacher"].includes(role)){
+alert("You cannot upload photos.");
+return;
+}
+
+const files = Array.from(document.getElementById("photoInput").files)
+.filter(file=>file.type.startsWith("image/"));
+
+if(files.length === 0){
+alert("Please select photos first.");
+return;
+}
+
+let completed = 0;
+let newPhotos = [];
+
+files.forEach(file=>{
+const reader = new FileReader();
+
+reader.onload = function(e){
+newPhotos.push(e.target.result);
+completed++;
+
+if(completed === files.length){
+const updated = photos.concat(newPhotos);
+
+if(saveData("nsc_photos",updated)){
+photos = updated;
+document.getElementById("photoInput").value = "";
+document.getElementById("uploadMessage").textContent = "Photos added successfully in this browser!";
+render();
+}
+}
+};
+
+reader.readAsDataURL(file);
+});
+}
+
+/* RENDER PHOTO GALLERY */
+function renderPhotos(){
+const gallery = document.getElementById("photoGallery");
+
+gallery.innerHTML = photos.map((photo,index)=>`
+<div class="photo-card">
+<img src="${photo}" alt="Class photo">
+${role === "Admin" ? `<button class="danger small-btn" onclick="deletePhoto(${index})">Delete</button>` : ""}
+</div>
+`).join("") || "<p>No photos uploaded yet.</p>";
+}
+
+function deletePhoto(index){
+if(role !== "Admin") return;
+if(!confirm("Delete this photo?")) return;
+
+const removed = photos.splice(index,1)[0];
+
+if(!saveData("nsc_photos",photos)){
+photos.splice(index,0,removed);
+}
+
+renderPhotos();
+}
+
+/* UPDATE WEBSITE */
+function render(){
+renderPeople();
+renderSocials();
+
+renderList("events",events,"eventList");
+renderList("exams",exams,"examList");
+renderList("notices",notices,"noticeList");
+
+renderPhotos();
+
+document.getElementById("homeEventCount").textContent = events.length;
+}
+
+</script>
+
+</body>
+</html>
